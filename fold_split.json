@@ -1,0 +1,116 @@
+{
+  "0": [
+    "audiobook_1"
+  ],
+  "1": [
+    "audiobook_4",
+    "audiobook_14_1",
+    "podcast_1",
+    "podcast_7",
+    "podcast_11",
+    "audiobook_11_1",
+    "podcast_32",
+    "podcast_38"
+  ],
+  "2": [
+    "audiobook_2_1",
+    "podcast_6",
+    "podcast_3",
+    "audiobook_10_1",
+    "podcast_17",
+    "audiobook_12_1",
+    "podcast_37",
+    "podcast_39"
+  ],
+  "3": [
+    "audiobook_5_1",
+    "podcast_12",
+    "podcast_2",
+    "podcast_19",
+    "audiobook_12_2",
+    "podcast_29",
+    "podcast_40",
+    "podcast_43"
+  ],
+  "4": [
+    "audiobook_5_2",
+    "podcast_21",
+    "podcast_15",
+    "audiobook_13_2",
+    "podcast_30",
+    "audiobook_20",
+    "podcast_42"
+  ],
+  "5": [
+    "audiobook_3",
+    "podcast_10_video",
+    "podcast_10",
+    "podcast_20",
+    "podcast_27",
+    "podcast_26",
+    "podcast_36",
+    "audiobook_21",
+    "podcast_41"
+  ],
+  "6": [
+    "audiobook_6_2",
+    "podcast_8",
+    "audiobook_9_1",
+    "podcast_13",
+    "podcast_16",
+    "podcast_24",
+    "podcast_33",
+    "podcast_35",
+    "audiobook_22",
+    "audiobook_25"
+  ],
+  "7": [
+    "audiobook_5_3",
+    "audiobook_14_2",
+    "audiobook_8_1",
+    "podcast_9",
+    "podcast_23",
+    "audiobook_24"
+  ],
+  "8": [
+    "audiobook_6_1",
+    "podcast_5",
+    "podcast_14",
+    "podcast_18",
+    "audiobook_13_1",
+    "podcast_28",
+    "podcast_34",
+    "audiobook_23"
+  ],
+  "test_set_2023_1": [
+    "audiobook_2_2",
+    "podcast_4",
+    "audiobook_8_2",
+    "audiobook_9_2",
+    "audiobook_10_2",
+    "audiobook_11_2",
+    "podcast_25",
+    "podcast_22",
+    "podcast_31"
+  ],
+  "train_subs" : [
+    "sub-002", "sub-027", "sub-063", "sub-060", "sub-006", "sub-061", "sub-104", "sub-086", "sub-043", "sub-037", "sub-017", "sub-070", "sub-041", "sub-049", "sub-059", "sub-030", "sub-011", "sub-097", "sub-064", "sub-022", "sub-054", "sub-071", "sub-015", "sub-067", "sub-018", "sub-024", "sub-016", "sub-069", "sub-045", "sub-051", "sub-103", "sub-007", "sub-066", "sub-010", "sub-005", "sub-053", "sub-036", "sub-039", "sub-046", "sub-105", "sub-092", "sub-042", "sub-065", "sub-033", "sub-021", "sub-057", "sub-040", "sub-008", "sub-026", "sub-009", "sub-019", "sub-014", "sub-058", "sub-028", "sub-047", "sub-023", "sub-001", "sub-055", "sub-044", "sub-101", "sub-004", "sub-088", "sub-034", "sub-099", "sub-100", "sub-056", "sub-050", "sub-102", "sub-095", "sub-048", "sub-038", "sub-068", "sub-090", "sub-087", "sub-031", "sub-094", "sub-029", "sub-052", "sub-012", "sub-093", "sub-089", "sub-062", "sub-025", "sub-098", "sub-091", "sub-013", "sub-020", "sub-096", "sub-003", "sub-035", "sub-032"
+  ],
+  "test_subs": [
+    "sub-072",
+    "sub-073",
+    "sub-074",
+    "sub-075",
+    "sub-076",
+    "sub-077",
+    "sub-078",
+    "sub-079",
+    "sub-080",
+    "sub-081",
+    "sub-082",
+    "sub-083",
+    "sub-084",
+    "sub-085"
+  ]
+}
+
