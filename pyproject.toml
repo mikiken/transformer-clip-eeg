@@ -1,0 +1,19 @@
+[project]
+name = "transformer-clip-eeg"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "argparse>=1.4.0",
+    "braindecode>=1.2.0",
+    "einops>=0.8.1",
+    "logging>=0.4.9.6",
+    "numpy>=2.3.4",
+    "torch>=2.9.0",
+    "tqdm>=4.67.1",
+    "typing>=3.10.0.0",
+]
+
+[tool.setuptools.packages.find]
+exclude = ["results*", "__pycache__*"]
