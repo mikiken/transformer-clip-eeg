@@ -382,6 +382,9 @@ def get_train_val_test_files_final(data_folder,run, stimulus_feature, dataset_sp
     all_audio_files = glob.glob(os.path.join(data_folder, 'derivatives', 'preprocessed_stimuli', f"**/*{stimulus_feature}.npy"),
                                     recursive=True)
 
+    # print(f"[DEBUG] stimulus_feature: {stimulus_feature}")
+    # print(f"[DEBUG] all_audio_files: {all_audio_files}")
+
     test_split = 'test_set_2023_1'
     val_split = f'{run}'
     # split files in train, val and test
@@ -418,10 +421,10 @@ def get_train_val_test_files_final(data_folder,run, stimulus_feature, dataset_sp
     val_stories = list(set([os.path.basename(x).split("-audio-")[-1].split('_eeg')[0] for x in val_files]))
     train_stories = list(set([os.path.basename(x).split("-audio-")[-1].split('_eeg')[0] for x in train_files]))
 
-    test_audio_heldout = [x for x in all_audio_files if (os.path.basename(x).split('_-_')[0] in test_stories_heldout)]
-    test_audio = [x for x in all_audio_files if (os.path.basename(x).split('_-_')[0] in test_stories)]
-    val_audio = [x for x in all_audio_files if (os.path.basename(x).split('_-_')[0] in val_stories)]
-    train_audio = [x for x in all_audio_files if (os.path.basename(x).split('_-_')[0] in train_stories)]
+    test_audio_heldout = [x for x in all_audio_files if ('_'.join(os.path.basename(x).split('_')[:-1]) in test_stories_heldout)]
+    test_audio = [x for x in all_audio_files if ('_'.join(os.path.basename(x).split('_')[:-1]) in test_stories)]
+    val_audio = [x for x in all_audio_files if ('_'.join(os.path.basename(x).split('_')[:-1]) in val_stories)]
+    train_audio = [x for x in all_audio_files if ('_'.join(os.path.basename(x).split('_')[:-1]) in train_stories)]
 
     # if debug, only keep some files
     if debug:
@@ -430,10 +433,19 @@ def get_train_val_test_files_final(data_folder,run, stimulus_feature, dataset_sp
         test_files = test_files[0:5]
         test_files_heldout = test_files_heldout[0:5]
 
+    # print(f"[DEBUG] test_stories_heldout: {test_stories_heldout}")
+    # print(f"[DEBUG] test_stories: {test_stories}")
+    # print(f"[DEBUG] val_stories: {val_stories}")
+    # print(f"[DEBUG] train_stories: {train_stories}")
+    # print(f"[DEBUG] train_audio: {train_audio}")
+    # print(f"[DEBUG] val_audio: {val_audio}")
+    # print(f"[DEBUG] test_audio: {test_audio}")
+    # print(f"[DEBUG] test_audio_heldout: {test_audio_heldout}")
+
     return train_files, val_files, test_files , test_files_heldout, train_audio, val_audio, test_audio, test_audio_heldout
 
 
-def evaluate_model_do_regression_sub_specific(model, train_files,val_files, test_files, train_files_audio, val_files_audio, test_files_audio, device,result_folder, regress_to=['env', 'mel'], window_length=5, fs=64):
+def evaluate_model_do_regression_sub_specific(model, train_files,val_files, test_files, train_files_audio, val_files_audio, test_files_audio, device,result_folder, regress_to=['envelope', 'mel'], window_length=5, fs=64):
     # we have the train and test files, we want to do regression to the envelope
     # we will use the model to do this
     # first calculate for all the train_files per subject the embeddings
@@ -757,7 +769,7 @@ def evaluate_model_do_regression_sub_specific(model, train_files,val_files, test
     return evaluation
 
 
-def evaluate_model_do_regression_sub_independent(model, train_files,val_files, test_files, train_files_audio, val_files_audio, test_files_audio,device,result_folder, regress_to='env', window_length=5, fs=64):
+def evaluate_model_do_regression_sub_independent(model, train_files,val_files, test_files, train_files_audio, val_files_audio, test_files_audio,device,result_folder, regress_to='envelope', window_length=5, fs=64):
     # we have the train and test files, we want to do regression to the envelope
     # we will use the model to do this
     # first calculate for all the train_files per subject the embeddings

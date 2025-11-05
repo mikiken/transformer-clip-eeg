@@ -173,7 +173,7 @@ if __name__ == '__main__':
     parser.add_argument('--momentum_membank', type=float, default=0.90)
 
     parser.add_argument('--eeg_norm', type=str, default='mvn', choices=['mvn'])
-    parser.add_argument('--stimulus_features', type=str, default='wav2vec_19')  # , choices=['mel', 'env', 'wav2vec_15'])
+    parser.add_argument('--stimulus_features', type=str, default='envelope')  # , choices=['mel', 'envelope', 'wav2vec_19'])
     parser.add_argument('--model_arch', type=str, default='clip_sim_no_latent_proj',choices=['no_contrastive_learning','clip_kld', 'clip_kld_latent_proj','clip_mp','clip_sim','clip_sim_no_latent_proj', 'clip_extended', 'clip_no_eeg_loss', 'clip_correct'])
     parser.add_argument('--speech_encoder', type=str, default='convLSTM', choices=['conformer', 'smallConv','lstm','convLSTM', 'no', 'double_lstm', 'Wav2vecSmallModel'])
     parser.add_argument('--eeg_encoder', type=str, default='EEGConformerInterleaved', choices=['EEGConformerInterleaved','conformer','convLSTMnew','convLSTM','lstm_newvals','vlaai','clipmeta','lstm', 'lstm_lstm', 'double_lstm', 'transformerEncoder'])
@@ -292,7 +292,7 @@ if __name__ == '__main__':
     if stimulus_features == 'mel':
         speech_dimension = 28
         spatial_filters = 64
-    elif stimulus_features == 'env':
+    elif stimulus_features == 'envelope':
         speech_dimension = 1
         spatial_filters = 8
     elif 'wav2vec' in stimulus_features :
@@ -579,13 +579,13 @@ if __name__ == '__main__':
         # evaluate model
         evalutation = evaluate_model_do_regression_sub_specific(model, train_files, val_files,
                                                                 test_files, train_audio, val_audio, test_audio, device, results_folder,
-                                                                regress_to='env', window_length=3, fs=64)
+                                                                regress_to='envelope', window_length=3, fs=64)
 
     if True:
         evalutation = evaluate_model_do_regression_sub_independent(model, train_files, val_files,
                                                                 test_files, train_audio, val_audio, test_audio,
                                                                    device, results_folder,
-                                                                   regress_to='env', window_length=3, fs=64)
+                                                                   regress_to='envelope', window_length=3, fs=64)
 
 
     if True:
