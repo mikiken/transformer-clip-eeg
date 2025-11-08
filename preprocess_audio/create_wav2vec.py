@@ -73,7 +73,7 @@ def get_hidden_output(audio_path, layers=list(range(15, 18, 1)), overlap=10, seg
         speech_array, sampling_rate = librosa.load(audio_path, sr=sr)
     else:
         # it is a npz file
-        speech_data = dict(np.load(audio_path))
+        speech_data = dict(np.load(audio_path, allow_pickle=True))
         speech_array = speech_data['audio']
         sampling_rate = speech_data['fs']
         # do resampling from sampling_rate to sr
@@ -127,13 +127,15 @@ def get_hidden_output(audio_path, layers=list(range(15, 18, 1)), overlap=10, seg
 # now do the npz files
 audio_dir = os.path.join(dataset_root, 'stimuli', 'eeg')
 audio_paths = sorted(glob.glob(os.path.join(audio_dir, "*.npz.gz")), reverse=True)
+print(f'Found {len(audio_paths)} audio files.')
+
 #filter out the noise and trigger paths
 audio_paths = [x for x in audio_paths if not (os.path.basename(x).startswith('noise_') or os.path.basename(x).startswith('t_'))]
 for path in audio_paths:
     story = os.path.basename(path).split('.')[0]
     print('Processing ', story)
     # check if already unzipped
-    unzipped_name = '.'.join(path.split('.')[:-2])
+    unzipped_name = path.rsplit('.gz', 1)[0]
     if not os.path.exists(unzipped_name):
         # unzip first
         with gzip.open(path, 'rb') as f_in:
@@ -141,7 +143,7 @@ for path in audio_paths:
                 shutil.copyfileobj(f_in, f_out)
 
     if not os.path.exists(os.path.join(save_dir, f'{story}_-_wav2vec_{wav2vec_layers_to_extract[0]}.npy')):
-        pkl_dict = get_hidden_output(path, layers=wav2vec_layers_to_extract, overlap=2, segment_length=8)
+        pkl_dict = get_hidden_output(unzipped_name, layers=wav2vec_layers_to_extract, overlap=2, segment_length=8)
 
         for layer, value in pkl_dict.items():
             # Resample data
@@ -150,7 +152,8 @@ for path in audio_paths:
 
             # save layer per layer
             save_name = os.path.join(save_dir, f'{story}_-_wav2vec_{layer}.npy')
-            np.save(value, save_name)
+            np.save(save_name, value)
+            print(f"Saved to '{save_name}'.")
 
     print('done')
 
