@@ -73,11 +73,7 @@ class EEGDatasetSimdata(IterableDataset):
 
         self.exclusion_list = exclusion_list
         files = self.exclude_subjects(files, exclusion_list)
-        # print(f"[DEBUG] files: {files}")
-        # print(f"[DEBUG] audio_files: {audio_files}")
         self.eeg_files, self.audio_files = self.group_recordings(files, audio_files)
-        # print(f"[DEBUG] self.eeg_files: {self.eeg_files}")
-        # print(f"[DEBUG] self.audio_files: {self.audio_files}")
 
         self.eeg_in_memory = load_eeg_memory # not implemented yet currently - everything is always loaded
         self.speech_in_memory = load_speech_memory
@@ -105,7 +101,7 @@ class EEGDatasetSimdata(IterableDataset):
             # self.eeg is a dict with story as key and then a dict with feature as key and then the data
             # eg. self.eeg['story1']['eeg'] = eeg_data for all subs [n_subs, len_batch, wl, 64]
             # eg. self.eeg['story1']['wav2vec'] = wav2vec_data for all subs [ len_batch,wl,  1024]
-            # eg. self.eeg['story1']['envelope'] = env_data for all subs [ len_batch, wl, 1]
+            # eg. self.eeg['story1']['env'] = env_data for all subs [ len_batch, wl, 1]
             # eg. self.eeg['story1']['mel'] = mel_data for all subs [ len_batch, wl, 28]
             # eg. self.eeg['story1']['identifiers'] = identifiers for all subs [ len_batch, 1]
             # eg. self.eeg['story1']['sub'] = sub for all subs [ nsubs]
@@ -199,8 +195,6 @@ class EEGDatasetSimdata(IterableDataset):
         return speech_data
 
     def load_files(self, eeg_dict, audio_dict):
-        # print(f"[DEBUG] eeg_dict: {eeg_dict}")
-        # print(f"[DEBUG] audio_dict: {audio_dict}")
         # get all the eeg files
         eeg_data = {}
         id_identifier_max = 0
@@ -322,13 +316,13 @@ class EEGDatasetSimdata(IterableDataset):
         # put all the audio files in a dict with the story name as key
         audio_dict = {}
         for file in audio_files:
-            story = '_'.join(os.path.basename(file).split('_')[:-1])
+            story = os.path.basename(file).split('_-_')[0]
 
             # we only want the audio if there are corresponding EEG files
             if story not in eeg_dict:
                 continue
 
-            feature = os.path.splitext(os.path.basename(file))[0].split('_')[-1]
+            feature = os.path.basename(file).split('_-_')[1].split('.')[0]
             if story not in audio_dict:
                 audio_dict[story] = {}
             audio_dict[story][feature] = file
