@@ -1,3 +1,4 @@
+# transformer-clip-eeg
 Code for the paper 'Contrastive Representation Learning with
 Transformers for Robust Auditory EEG Decoding'
 Preprint currently available at https://www.researchsquare.com/article/rs-5013011/v1 
@@ -9,4 +10,18 @@ A trained model can be found at https://drive.google.com/file/d/1EO1BTlU2wb4S5x6
 
 More trained models can be found on https://homes.esat.kuleuven.be/~lbollens/sparrkulee/clip-transformer-eeg
 
+This repository is forked from [exporl/transformer-clip-eeg](https://github.com/exporl/transformer-clip-eeg).
 
+## Prerequisites
+This repository uses uv, so please install uv beforehand.
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Create a virtual environment and install the dependency packages.
+```bash
+uv venv
+source .venv/bin/activate
+uv sync
+```
