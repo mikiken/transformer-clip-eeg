@@ -17,7 +17,7 @@ sr = 16000
 import scipy.signal as sps
 
 final_samplingate_hz = 64 # from orginial 50Hz
-dataset_root= '/esat/audioslave/lbollens/sparrkulee_data/sparrkulee'
+dataset_root = os.path.join(os.path.dirname(__file__), '..', '..', 'auditory-eeg-dataset', 'downloads')
 wav2vec_layers_to_extract = list(range(19, 20, 1))
 processor = Wav2Vec2Processor.from_pretrained(MODEL_ID)
 model = Wav2Vec2ForCTC.from_pretrained(MODEL_ID)
