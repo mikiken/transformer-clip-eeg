@@ -13,3 +13,4 @@ wheels/
 results/
 preprocess_audio/*
 !create_wav2vec.py
+logs/
