@@ -111,6 +111,9 @@ def evaluate_model_challenge_2023_mm(model, device, subject=None, speech_feature
     print(f'number of test stimuli embeddings: {len(list(test_stimuli_data_embeddings.keys()))}')
 
     list_keys_stimuli = list(test_stimuli_data_embeddings.keys())
+    if not list_keys_stimuli:
+        print("No test stimuli found for match-mismatch evaluation, skipping.")
+        return {}, {}, {}, {}
     list_torch_stimuli_embeddings = torch.stack([test_stimuli_data_embeddings[key] for key in list_keys_stimuli])
 
 
@@ -210,6 +213,10 @@ def evaluate_model_challenge_2023_regression(model, results_folder, device, subj
     path_labels_regression = os.path.join(data_folder, 'labels')
     # labels.json with the correct labels
     labels_regression = load_labels_regression_2023(path_labels_regression, subject=subject)
+
+    if not labels_regression:
+        print("No labels found for regression evaluation, skipping.")
+        return {}, {}
 
     # get dimension of labels
     time_dim = len(list(labels_regression.values())[0][0])
